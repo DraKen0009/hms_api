@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nv#_5_1(jm#+nvzwgf(t6)d0=+_obwr3##kj8^ii=p(f+4yp%y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','.now.sh']
 
 # Application definition
 
@@ -81,6 +83,9 @@ DATABASES = {
     }
 }
 
+
+DATABASES["default"] = dj_database_url.parse("postgres://testdb_sabh_user:pLJm4MEiRJifawtOGwZIw8ggoeE8HISG@dpg-cj1q2rp5rnuhn3mhhdj0-a.singapore-postgres.render.com/testdb_sabh")
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -114,6 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL= 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
