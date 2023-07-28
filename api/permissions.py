@@ -42,8 +42,8 @@ class DoctorsPatientSpecific(BasePermission):
 
 class DepartmentDoctor(BasePermission):
     def has_permission(self, request, view):
-        if not view.get_queryset().first():
-            return Response()
+        if view.get_queryset() is None:
+            return False
         if request.user.is_authenticated and ((request.user in view.get_queryset()) or request.user.is_superuser):
             return True
         return False
@@ -51,8 +51,10 @@ class DepartmentDoctor(BasePermission):
 
 class DepartmentPatient(BasePermission):
     def has_permission(self, request, view):
-        if view.get_queryset().first():
-            return Response({'msg': 'Department is empty', })
+        if view.get_queryset() is None:
+            return False
+        if view.get_queryset().first() is None:
+            return False
         if request.user.is_authenticated and (
                 request.user.department == view.get_queryset().first().department or request.user.is_superuser):
             return True

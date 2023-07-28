@@ -1,6 +1,6 @@
 # Create your views here.
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -60,12 +60,13 @@ class PatientDetailView(RetrieveUpdateDestroyAPIView):
 class DepartmentListView(ListCreateAPIView):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
+    permission_classes = [AllowAny]
 
 
 class DepartmentDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
-
+    permission_classes = [DoctorOnly]
 
 class DepartmentDoctorView(ListCreateAPIView):
     serializer_class = UserSerializerModified
@@ -77,6 +78,8 @@ class DepartmentDoctorView(ListCreateAPIView):
     def get_queryset(self, **kwargs):
         id = self.kwargs['pk']
         dep = Department.objects.filter(id=id).first()
+        if dep is None:
+            return None
         queryset = dep.user_set.filter(role=User.Role.DOCTOR)
         return queryset
 
@@ -91,6 +94,8 @@ class DepartmentPatientView(ListCreateAPIView):
     def get_queryset(self, **kwargs):
         id = self.kwargs['pk']
         dep = Department.objects.filter(id=id).first()
+        if dep is None:
+            return None
         queryset = dep.user_set.filter(role=User.Role.PATIENT)
         return queryset
 
