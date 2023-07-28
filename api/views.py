@@ -1,4 +1,5 @@
 # Create your views here.
+from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -10,6 +11,8 @@ from api.permissions import DoctorOnly, PatientSpecific, DoctorsPatientSpecific,
 from api.serializers import UserSerializer, UserSerializerModified, DepartmentSerializer, PatientReportSerializer
 
 
+def home(request):
+    return render(request,'api/landing.html')
 class RegisterView(APIView):
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)

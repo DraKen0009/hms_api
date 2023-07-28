@@ -3,10 +3,11 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 from api.views import RegisterView, DepartmentPatientView, DepartmentDoctorView, DepartmentDetailView, \
     DoctorDetailView, DepartmentListView, DoctorListView, PatientReportDetailView, PatientListView, \
-    PatientReportListView, PatientDetailView
+    PatientReportListView, PatientDetailView, home
 
 urlpatterns = [
 
+    path('',home),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name="sign_up"),
