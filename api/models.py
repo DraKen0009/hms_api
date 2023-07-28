@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,unique=True)
     diagnostics = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     specialization = models.CharField(max_length=20)
