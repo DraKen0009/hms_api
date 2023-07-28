@@ -41,7 +41,7 @@ class User(AbstractUser):
 class PatientReport(models.Model):
     record_id = models.BigAutoField(primary_key=True)
     patient = models.ForeignKey(User, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateField(auto_now_add=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     diagnostics = models.TextField()
     observations = models.TextField()

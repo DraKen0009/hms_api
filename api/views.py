@@ -108,7 +108,7 @@ class PatientReportListView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self, **kwargs):
-        qs = PatientReport.objects.all().filter(patient__role=User.Role.PATIENT)
+        qs = PatientReport.objects.filter(patient__role=User.Role.PATIENT)
         return qs
 
 

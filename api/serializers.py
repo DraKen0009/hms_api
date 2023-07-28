@@ -52,16 +52,22 @@ class PatientReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientReport
         fields = ['record_id', 'patient', 'department', 'created', 'diagnostics', 'observations', 'treatments']
+        extra_kwargs = {
+            'created': {
+                'read_only': True,
+            },
+
+        }
 
     def to_representation(self, instance):
         rep = super(PatientReportSerializer, self).to_representation(instance)
-        rep['student'] = instance.student.username
+        rep['patient'] = instance.patient.username
         rep['department'] = instance.department.name
         return rep
 
     def validate(self, attrs):
         print(attrs)
-        student = attrs.get('student')
-        if student.role != User.Role.PATIENT:
-            raise serializers.ValidationError("Report can be created for students only")
+        patient = attrs.get('patient')
+        if patient.role != User.Role.PATIENT:
+            raise serializers.ValidationError("Report can be created for patients only")
         return attrs
