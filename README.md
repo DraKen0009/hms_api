@@ -11,4 +11,5 @@ admin password = 123
 
 Documentation : -
 
-![image](https://github.com/DraKen0009/hms_api/assets/115104695/7c98ec0d-5bcd-4c2b-ae1d-2d1e1f80eb36)
+![image](https://github.com/DraKen0009/hms_api/assets/115104695/e4067f8d-ccec-4631-99c6-060a1c399470)
+
